@@ -23,7 +23,7 @@ function App() {
   function playAudio( selectA, selectB ) {
     const audio = document.getElementById( selectA );
     setContent( selectB );
-    audio.play();
+    audio.play().catch((e)=> console.log(e));
   };
 
   return (
