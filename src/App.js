@@ -1,57 +1,48 @@
 import './App.css';
 import Display from './components/Display';
 import DrumPad from './components/DrumPad';
+import drumObjs from './drumObj';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
+  
+  const [ content, setContent ] = useState( "display" );
+
+  useEffect(() => 
+    document.addEventListener('keydown', (event) => {
+      const keyDisp = drumObjs
+      .filter(
+        (name)=>name.buttonName === event.key.toUpperCase()
+      )
+      .map((name)=>name.audioName)
+      playAudio( event.key.toUpperCase(), ...keyDisp )
+      console.log(keyDisp)
+    })
+  ,[]);
+
+  function playAudio( selectA, selectB ) {
+    const audio = document.getElementById( selectA );
+    setContent( selectB );
+    audio.play();
+  };
+
   return (
-    <div className="App">
+    <div className="App" >
+      <h1 className="title">Drum Machine</h1>
       <div id="drum-machine" >
-        <Display  />
-        <DrumPad 
-          buttonName="Q" 
-          audioName="Heater 1" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+        <Display 
+          displayed= { content } 
         />
+        { drumObjs.map(( drum ) => 
         <DrumPad 
-          buttonName="W" 
-          audioName="Heater 2" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"
+          key={ drum.audioName }
+          buttonName={ drum.buttonName } 
+          audioName={ drum.audioName } 
+          aSrc={ drum.audioSrc }
+          Click= { () => { playAudio( drum.buttonName, drum.audioName )} }
         />
-        <DrumPad 
-          buttonName="E" 
-          audioName="Heater 3" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"
-        />
-        <DrumPad 
-          buttonName="A" 
-          audioName="Heater 4" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"
-        />
-        <DrumPad 
-          buttonName="S" 
-          audioName="Clap" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"
-        />
-        <DrumPad 
-          buttonName="D" 
-          audioName="Open-HH" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"
-        />
-        <DrumPad 
-          buttonName="Z" 
-          audioName="Kick-n'-Hat" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"
-        />
-        <DrumPad 
-          buttonName="X" 
-          audioName="Kick" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"
-        />
-        <DrumPad 
-          buttonName="C" 
-          audioName="Closed-HH" 
-          audioSrc="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"
-        />
+        )}
       </div>
     </div>
   );

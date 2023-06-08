@@ -1,7 +1,11 @@
-const DrumPad = ({audioName, buttonName, audioSrc}) => 
-    <button className="drum-pad" id={audioName}>
-        <audio src={audioSrc} className="clip" id={buttonName} />
-        {buttonName}
+const DrumPad = ({ audioName, buttonName, aSrc, Click}) => 
+    <button 
+        className="drum-pad" 
+        id={ audioName }
+        onClick= { Click } 
+        >
+        <audio src={ aSrc } className="clip" id={ buttonName } defer></audio>
+        { buttonName }
     </button>
 
 export default DrumPad;
