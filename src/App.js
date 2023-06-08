@@ -12,12 +12,11 @@ function App() {
   useEffect(() => 
     document.addEventListener('keydown', (event) => {
       const keyDisp = drumObjs
-      .filter(
-        (name)=>name.buttonName === event.key.toUpperCase()
-      )
-      .map((name)=>name.audioName)
+        .filter(
+          (name)=>name.buttonName === event.key.toUpperCase()
+        )
+        .map((name)=>name.audioName);
       playAudio( event.key.toUpperCase(), ...keyDisp )
-      console.log(keyDisp)
     })
   ,[]);
 
