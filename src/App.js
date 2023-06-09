@@ -43,7 +43,7 @@ function App() {
         />
         )}
       </div>
-      <p>by <a href="https://github.com/axelpelcode" ></a></p>
+      <p>by <a href="https://github.com/axelpelcode" >Axelpelcode</a></p>
     </div>
   );
 }
