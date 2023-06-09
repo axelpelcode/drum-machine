@@ -43,6 +43,7 @@ function App() {
         />
         )}
       </div>
+      <p>by <a href="https://github.com/axelpelcode" ></a></p>
     </div>
   );
 }
